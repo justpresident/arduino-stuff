@@ -1,0 +1,6 @@
+http://www.robertoinzerillo.com/wordpress/?p=45
+
+avrdude -c usbasp -p m8 -U hfuse:w:0xCC:m -u
+avrdude -c usbasp -p m8 -U lfuse:r:lfuse.h:i -v
+
+

@@ -1,0 +1,15 @@
+I just downloaded new update of Time library. When I try to compile it gives me an error:
+sketchbook/libraries/Time/DateStrings.cpp:41:56: error: variable 'monthNames_P' must be const in order to be put into read-only section by means of '__attribute__((progmem))'
+sketchbook/libraries/Time/DateStrings.cpp:58:54: error: variable 'dayNames_P' must be const in order to be put into read-only section by means of '__attribute__((progmem))'
+sketchbook/libraries/Time/DateStrings.cpp:59:51: error: variable 'dayShortNames_P' must be const in order to be put into read-only section by means of '__attribute__((progmem))'
+
+It is due to new gcc-avr version 4.7.1
+
+Three lines of code in DateStrings.cpp in library should be replaced by:
+line 41: PGM_P PROGMEM monthNames_P[] =
+line 58: PGM_P PROGMEM dayNames_P[] = { dayStr0,dayStr1,dayStr2,dayStr3,dayStr4,dayStr5,dayStr6,dayStr7};
+line 59: const char dayShortNames_P[] PROGMEM = "ErrSunMonTueWedThrFriSat";
+
+It, at least, compiles fine. There is no need to downgrade gcc-avr as suggested in several posts.
+
+If someone come across the same problem, I hope it will helps.
